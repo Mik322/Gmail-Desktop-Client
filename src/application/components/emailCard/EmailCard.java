@@ -19,6 +19,7 @@ public class EmailCard extends AnchorPane {
     private MailClient mailClient;
 
     private static final String SEEN_BACKGROUND_STYLE = "-fx-background-color: rgba(220,220,220,0.7)";
+    private static final String UNSEEN_BACKGROUND_STYLE = "-fx-background-color: white";
 
     public EmailCard(Email email, MailClient mailClient) {
         try {
@@ -36,9 +37,7 @@ public class EmailCard extends AnchorPane {
             subject.setText(email.getSubject());
             if (email.isRead())
                 this.setStyle(SEEN_BACKGROUND_STYLE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (MessagingException e) {
+        } catch (IOException | MessagingException e) {
             e.printStackTrace();
         }
 
@@ -49,6 +48,17 @@ public class EmailCard extends AnchorPane {
             this.setStyle(SEEN_BACKGROUND_STYLE);
             email.markAsRead();
         }
+    }
+
+    public void setUnseen() throws MessagingException {
+        if (email.isRead()) {
+            this.setStyle(UNSEEN_BACKGROUND_STYLE);
+            email.markAsUnread();
+        }
+    }
+
+    public Boolean isSeen() throws MessagingException {
+        return email.isRead();
     }
 
     public void removeCard() {

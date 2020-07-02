@@ -3,6 +3,7 @@ package application.mainWindows.mailclient.windows;
 import application.Main;
 import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.emailreadwindow.DeleteMailButtonHandler;
+import application.eventHandlers.mailclient.emailreadwindow.MarkAsUnreadButton;
 import email.Email;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -52,7 +53,9 @@ public class EmailReadWindow {
         //Menu content
         Button deleteMail = new Button("Delete Email");
         deleteMail.setOnAction(new DeleteMailButtonHandler(this));
-        menu.getChildren().add(deleteMail);
+        Button markAsUnread = new Button("Mark as Unread");
+        markAsUnread.setOnAction(new MarkAsUnreadButton(emailCard));
+        menu.getChildren().addAll(deleteMail, markAsUnread);
 
 
         //Header Content

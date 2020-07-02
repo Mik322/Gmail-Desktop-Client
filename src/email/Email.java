@@ -70,6 +70,10 @@ public class Email {
         message.setFlag(Flags.Flag.SEEN, true);
     }
 
+    public void markAsUnread() throws MessagingException {
+        message.setFlag(Flags.Flag.SEEN, false);
+    }
+
     public Boolean isRead() throws MessagingException {
         return message.getFlags().contains(Flags.Flag.SEEN);
     }

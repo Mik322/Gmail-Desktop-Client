@@ -23,4 +23,8 @@ public class MailBoxCard extends AnchorPane {
 
         this.boxName.setText(boxName);
     }
+
+    public String getBoxName() {
+        return boxName.getText();
+    }
 }

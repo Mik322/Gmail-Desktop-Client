@@ -62,9 +62,8 @@ public class MailClient {
         //Menu Buttons
         Button sendMail = new Button("Send Email");
         sendMail.setOnAction(new OpenSendEmailButtonHandler(connection));
-        Button refresh = new Button("Refresh");
 
-        menuBar.getChildren().addAll(sendMail, refresh);
+        menuBar.getChildren().addAll(sendMail);
 
         Scene scene = new Scene(root);
 
@@ -97,13 +96,14 @@ public class MailClient {
     }
 
     public void setFolder(String folderName) throws MessagingException, IOException, InterruptedException {
-        Message[] messages = connection.getMessagesFromFolder(folderName);
-
         //Thread that runs the message list and adds it to the mail List
         if (emailThread != null) {
             emailThread.stopThread();
             emailThread.join();
         }
+
+        Message[] messages = connection.getMessagesFromFolder(folderName);
+
         emailThread = new GetEmailsThread(messages, this);
         emailThread.setDaemon(true);
         emailThread.start();

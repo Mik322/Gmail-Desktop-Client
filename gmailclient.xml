@@ -95,7 +95,7 @@
   </path>
   
   <path id="library.jsoup-1.13.1.classpath">
-    <pathelement location="${basedir}/Libs/jsoup-1.13.1.jar"/>
+    <pathelement location="/libs/jsoup-1.13.1.jar"/>
   </path>
   <!-- Register Custom Compiler Taskdefs -->
   <property name="javac2.home" value="${idea.home}/lib"/>
