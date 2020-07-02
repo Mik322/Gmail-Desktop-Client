@@ -1,5 +1,4 @@
 *.db
 *iml
 out/
-.idea/
 libs/
