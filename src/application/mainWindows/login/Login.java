@@ -2,15 +2,15 @@ package application.mainWindows.login;
 
 import application.Main;
 import application.eventHandlers.login.LoginEventHandler;
-import application.mainWindows.login.savedlogin.LoginCredentialStruct;
+import application.mainWindows.login.savedlogin.LoginCredentials;
 import application.mainWindows.login.savedlogin.SavedLogin;
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -20,25 +20,30 @@ import java.io.IOException;
 public class Login {
 
     Stage stage;
-    TextField email;
-    PasswordField password;
-    CheckBox saveLoginDataCheckbox;
 
-    public void display() {
+    @FXML
+    TextField email;
+    @FXML
+    PasswordField password;
+    @FXML
+    CheckBox saveLoginDataCheckbox;
+    @FXML
+    Button loginButton;
+
+    public void display() throws IOException {
         //Configuring main stage
         stage = new Stage();
         stage.setTitle("Login");
         stage.initStyle(StageStyle.DECORATED);
-        stage.setHeight(500);
-        stage.setWidth(350);
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
+
+        //Loading the fxml VBox
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        loader.setController(this);
+        VBox root = loader.load();
 
         //Login Event Handler
         LoginEventHandler loginEventHandler = new LoginEventHandler(this);
-
-        //Main Layout
-        VBox root = new VBox(50);
-        root.setAlignment(Pos.CENTER);
 
         //Email and Username default values
         String defaultEmail = "";
@@ -46,7 +51,7 @@ public class Login {
 
         try {
             if (SavedLogin.hasSavedLogin()) {
-                LoginCredentialStruct savedValues = SavedLogin.getSavedValues();
+                LoginCredentials savedValues = SavedLogin.getSavedValues();
                 defaultEmail = savedValues.getEmail();
                 defaultPassword = savedValues.getPassword();
             }
@@ -54,31 +59,15 @@ public class Login {
             e.printStackTrace();
         }
 
-        //Labels and controllers
-        Label loginLabel = new Label("Enter your Gmail credentials");
-        Label emailLabel = new Label("Email: ");
-        email = new TextField();
+        //Setting values to the inputs
         email.setText(defaultEmail);
-        Label passwordLabel = new Label("Password: ");
-        password = new PasswordField();
         password.setText(defaultPassword);
-        saveLoginDataCheckbox = new CheckBox("Save login credentials");
         saveLoginDataCheckbox.fire();
-        Button loginButton = new Button("Login");
 
-        //Grid with email and password input
-        GridPane emailAndPasswordGrid = new GridPane();
-        emailAndPasswordGrid.add(emailLabel, 0, 0);
-        emailAndPasswordGrid.add(email, 1, 0);
-        emailAndPasswordGrid.add(passwordLabel, 0, 1);
-        emailAndPasswordGrid.add(password, 1, 1);
 
         //Adding Event Listeners
         loginButton.addEventHandler(MouseEvent.MOUSE_CLICKED, loginEventHandler);
         root.addEventHandler(KeyEvent.KEY_PRESSED, loginEventHandler);
-
-        //Adding controllers to main layout
-        root.getChildren().addAll(loginLabel, emailAndPasswordGrid, saveLoginDataCheckbox, loginButton);
 
         //Creating the scene
         Scene scene = new Scene(root);

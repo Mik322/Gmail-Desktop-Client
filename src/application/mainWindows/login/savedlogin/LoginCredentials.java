@@ -2,11 +2,11 @@ package application.mainWindows.login.savedlogin;
 
 import java.io.Serializable;
 
-public class LoginCredentialStruct implements Serializable {
+public class LoginCredentials implements Serializable {
     private String email;
     private String password;
 
-    public LoginCredentialStruct(String email, String password) {
+    public LoginCredentials(String email, String password) {
         this.email = email;
         this.password = password;
     }

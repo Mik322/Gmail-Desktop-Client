@@ -30,6 +30,8 @@ public class LoginEventHandler implements EventHandler<Event> {
         try {
             if (stage.getSaveLoginDataCheckbox().isSelected()) {
                 SavedLogin.saveValues(stage.getEmail(), stage.getPassword());
+            } else {
+                SavedLogin.deleteSavedValues();
             }
             Connection con = new Connection(stage.getEmail(), stage.getPassword());
             MailClient client = new MailClient(con);

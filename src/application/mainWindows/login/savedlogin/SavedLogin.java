@@ -1,6 +1,8 @@
 package application.mainWindows.login.savedlogin;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class SavedLogin {
 
@@ -12,10 +14,13 @@ public class SavedLogin {
         return answer;
     }
 
-    public static LoginCredentialStruct getSavedValues() throws IOException, ClassNotFoundException {
+    public static LoginCredentials getSavedValues() throws IOException, ClassNotFoundException {
         InputStream in = new FileInputStream(savedLoginDataPath);
         ObjectInputStream objectIn = new ObjectInputStream(in);
-        return (LoginCredentialStruct) objectIn.readObject();
+        LoginCredentials credentials = (LoginCredentials) objectIn.readObject();
+        in.close();
+        objectIn.close();
+        return credentials;
     }
 
     public static void saveValues(String email, String password) throws IOException {
@@ -24,6 +29,10 @@ public class SavedLogin {
         }
         OutputStream out = new FileOutputStream(savedLoginDataPath);
         ObjectOutputStream objectOut = new ObjectOutputStream(out);
-        objectOut.writeObject(new LoginCredentialStruct(email, password));
+        objectOut.writeObject(new LoginCredentials(email, password));
+    }
+
+    public static void deleteSavedValues() throws IOException {
+        Files.deleteIfExists(Paths.get(savedLoginDataPath));
     }
 }
