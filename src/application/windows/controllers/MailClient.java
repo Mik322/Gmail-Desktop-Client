@@ -1,4 +1,4 @@
-package application.mainWindows.mailclient;
+package application.windows.controllers;
 
 import application.Main;
 import application.components.MailBoxesCard.MailBoxCard;
@@ -6,8 +6,8 @@ import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.FolderListButtonHandler;
 import application.eventHandlers.mailclient.OnCloseHandler;
 import application.eventHandlers.mailclient.OpenSendEmailButtonHandler;
-import application.mainWindows.mailclient.threads.GetEmailBoxesThread;
-import application.mainWindows.mailclient.threads.GetEmailsThread;
+import application.threads.GetEmailBoxesThread;
+import application.threads.GetEmailsThread;
 import email.connection.Connection;
 import javafx.application.Platform;
 import javafx.scene.Scene;

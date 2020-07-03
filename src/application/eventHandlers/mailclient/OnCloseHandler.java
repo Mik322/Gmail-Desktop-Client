@@ -1,6 +1,6 @@
 package application.eventHandlers.mailclient;
 
-import application.mainWindows.mailclient.MailClient;
+import application.windows.controllers.MailClient;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 

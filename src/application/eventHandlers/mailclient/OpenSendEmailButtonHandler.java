@@ -1,6 +1,6 @@
 package application.eventHandlers.mailclient;
 
-import application.mainWindows.mailclient.windows.SendEmailWindow;
+import application.windows.controllers.SendEmailWindow;
 import email.connection.Connection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

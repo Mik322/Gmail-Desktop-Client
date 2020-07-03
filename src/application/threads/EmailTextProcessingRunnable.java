@@ -1,4 +1,4 @@
-package application.mainWindows.mailclient.threads;
+package application.threads;
 
 import application.components.emailCard.EmailCard;
 

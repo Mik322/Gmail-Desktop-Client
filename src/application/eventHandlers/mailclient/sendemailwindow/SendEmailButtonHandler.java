@@ -1,6 +1,6 @@
 package application.eventHandlers.mailclient.sendemailwindow;
 
-import application.mainWindows.mailclient.windows.SendEmailWindow;
+import application.windows.controllers.SendEmailWindow;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import org.apache.commons.validator.routines.EmailValidator;

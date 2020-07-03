@@ -1,7 +1,7 @@
 package application.eventHandlers.mailclient.emailreadwindow;
 
 import application.components.emailCard.EmailCard;
-import application.mainWindows.mailclient.windows.EmailReadWindow;
+import application.windows.controllers.EmailReadWindow;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

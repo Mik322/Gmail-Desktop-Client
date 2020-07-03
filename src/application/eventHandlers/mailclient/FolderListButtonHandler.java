@@ -1,10 +1,9 @@
 package application.eventHandlers.mailclient;
 
 import application.components.MailBoxesCard.MailBoxCard;
-import application.mainWindows.mailclient.MailClient;
+import application.windows.controllers.MailClient;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 import javax.mail.MessagingException;

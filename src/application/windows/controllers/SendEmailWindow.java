@@ -1,4 +1,4 @@
-package application.mainWindows.mailclient.windows;
+package application.windows.controllers;
 
 import application.Main;
 import application.eventHandlers.mailclient.sendemailwindow.SendEmailButtonHandler;

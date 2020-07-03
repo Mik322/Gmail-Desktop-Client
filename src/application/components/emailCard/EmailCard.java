@@ -1,6 +1,6 @@
 package application.components.emailCard;
 
-import application.mainWindows.mailclient.MailClient;
+import application.windows.controllers.MailClient;
 import email.Email;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

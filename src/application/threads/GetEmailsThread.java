@@ -1,8 +1,8 @@
-package application.mainWindows.mailclient.threads;
+package application.threads;
 
 import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.EmailCardClickHandler;
-import application.mainWindows.mailclient.MailClient;
+import application.windows.controllers.MailClient;
 import email.Email;
 import javafx.scene.input.MouseEvent;
 

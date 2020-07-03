@@ -1,4 +1,4 @@
-package application.mainWindows.login.savedlogin;
+package email.savedlogin;
 
 import java.io.Serializable;
 

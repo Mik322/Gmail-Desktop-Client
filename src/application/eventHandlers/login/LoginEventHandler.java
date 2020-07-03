@@ -1,8 +1,8 @@
 package application.eventHandlers.login;
 
-import application.mainWindows.login.Login;
-import application.mainWindows.login.savedlogin.SavedLogin;
-import application.mainWindows.mailclient.MailClient;
+import application.windows.controllers.Login;
+import email.savedlogin.SavedLogin;
+import application.windows.controllers.MailClient;
 import email.connection.Connection;
 import javafx.event.Event;
 import javafx.event.EventHandler;

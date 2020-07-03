@@ -1,9 +1,9 @@
-package application.mainWindows.login;
+package application.windows.controllers;
 
 import application.Main;
 import application.eventHandlers.login.LoginEventHandler;
-import application.mainWindows.login.savedlogin.LoginCredentials;
-import application.mainWindows.login.savedlogin.SavedLogin;
+import email.savedlogin.LoginCredentials;
+import email.savedlogin.SavedLogin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,7 +38,7 @@ public class Login {
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
 
         //Loading the fxml VBox
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Login.fxml"));
         loader.setController(this);
         VBox root = loader.load();
 

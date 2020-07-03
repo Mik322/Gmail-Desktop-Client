@@ -1,8 +1,8 @@
-package application.mainWindows.mailclient.threads;
+package application.threads;
 
 import application.components.MailBoxesCard.MailBoxCard;
 import application.eventHandlers.mailclient.FolderListButtonHandler;
-import application.mainWindows.mailclient.MailClient;
+import application.windows.controllers.MailClient;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;

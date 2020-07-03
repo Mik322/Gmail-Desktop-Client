@@ -1,8 +1,7 @@
 package application;
 
-import application.mainWindows.login.Login;
+import application.windows.controllers.Login;
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
