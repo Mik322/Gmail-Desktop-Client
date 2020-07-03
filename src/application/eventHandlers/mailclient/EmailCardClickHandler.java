@@ -27,9 +27,10 @@ public class EmailCardClickHandler implements EventHandler<MouseEvent> {
                 target = target.getParent();
             }
             EmailCard emailCard = ((EmailCard) target);
+            emailCard.waitForProcessing();
             emailCard.setSeen();
             new EmailReadWindow(emailCard).display();
-        } catch (MessagingException | IOException e) {
+        } catch (MessagingException | IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

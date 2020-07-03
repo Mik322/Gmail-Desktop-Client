@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import java.util.concurrent.Executor;
 
 public class GetEmailsThread extends Thread {
 
@@ -30,6 +31,8 @@ public class GetEmailsThread extends Thread {
                 EmailCard card = null;
                 card = new EmailCard(new Email(messagesList[i]), mailClient);
                 card.addEventHandler(MouseEvent.MOUSE_CLICKED, handler);
+
+                mailClient.getEmailProcessingPool().execute(new EmailTextProcessingRunnable(card));
 
                 mailClient.addEmailCard(card);
                 i--;

@@ -21,6 +21,8 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MailClient {
 
@@ -33,6 +35,8 @@ public class MailClient {
     private HBox menuBar;
 
     private GetEmailsThread emailThread;
+
+    private Executor emailProcessingPool = Executors.newFixedThreadPool(10);
 
     public void display() {
         //Creating and setting up the stage
@@ -107,6 +111,10 @@ public class MailClient {
         emailThread = new GetEmailsThread(messages, this);
         emailThread.setDaemon(true);
         emailThread.start();
+    }
+
+    public Executor getEmailProcessingPool() {
+        return emailProcessingPool;
     }
 
     public MailClient(Connection connection) {

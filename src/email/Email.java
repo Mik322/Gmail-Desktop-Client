@@ -11,6 +11,8 @@ public class Email {
     private String fromEmail, fromName, text, subject;
     private Message message;
 
+    private Boolean hasFinishedProcessing = false;
+
     public Email(Message message) throws MessagingException {
         this.message = message;
         fromEmail = ((InternetAddress) message.getFrom()[0]).getAddress();
@@ -18,9 +20,11 @@ public class Email {
         fromName = ((InternetAddress) message.getFrom()[0]).getPersonal();
     }
 
-    public String getText() throws MessagingException, IOException {
-        if (text != null) return text;
+    public String getText() {
+        return text;
+    }
 
+    public void processPart() throws IOException, MessagingException {
         if (message.isMimeType("text/plain")) {
             text = message.getContent().toString();
         } else if (message.isMimeType("multipart/*")) {
@@ -28,7 +32,6 @@ public class Email {
             text = "";
             extractText(multipart);
         }
-        return text;
     }
 
     private void extractText(Multipart multipart) throws MessagingException, IOException {
@@ -44,6 +47,14 @@ public class Email {
             }
         }
         return;
+    }
+
+    public Boolean getHasFinishedProcessing() {
+        return hasFinishedProcessing;
+    }
+
+    public void setHasFinishedProcessing(Boolean hasFinishedProcessing) {
+        this.hasFinishedProcessing = hasFinishedProcessing;
     }
 
     public String getFromEmail() {

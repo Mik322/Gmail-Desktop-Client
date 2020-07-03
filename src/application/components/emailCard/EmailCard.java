@@ -43,6 +43,15 @@ public class EmailCard extends AnchorPane {
 
     }
 
+    public synchronized void waitForProcessing() throws InterruptedException {
+        if (!email.getHasFinishedProcessing()) wait();
+    }
+
+    public synchronized void finishedProcessing() {
+        email.setHasFinishedProcessing(true);
+        notifyAll();
+    }
+
     public void setSeen() throws MessagingException {
         if (!email.isRead()) {
             this.setStyle(SEEN_BACKGROUND_STYLE);
