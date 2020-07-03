@@ -4,6 +4,7 @@ import application.Main;
 import application.components.MailBoxesCard.MailBoxCard;
 import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.FolderListButtonHandler;
+import application.eventHandlers.mailclient.OnCloseHandler;
 import application.eventHandlers.mailclient.OpenSendEmailButtonHandler;
 import application.mainWindows.mailclient.threads.GetEmailBoxesThread;
 import application.mainWindows.mailclient.threads.GetEmailsThread;
@@ -21,7 +22,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MailClient {
@@ -34,17 +35,20 @@ public class MailClient {
     private VBox inboxList;
     private HBox menuBar;
 
+    private Stage stage;
+
     private GetEmailsThread emailThread;
 
-    private Executor emailProcessingPool = Executors.newFixedThreadPool(10);
+    private ExecutorService emailProcessingPool = Executors.newFixedThreadPool(10);
 
     public void display() {
         //Creating and setting up the stage
-        Stage stage = new Stage();
+        stage = new Stage();
         stage.setTitle("Gmail Desktop");
         stage.getIcons().add(Main.PAGE_ICON);
         stage.setWidth(1250);
         stage.setHeight(750);
+        stage.setOnCloseRequest(new OnCloseHandler(this));
 
         //Main Layout
         BorderPane root = new BorderPane();
@@ -81,6 +85,10 @@ public class MailClient {
         }
     }
 
+    public void closeStage() {
+        stage.close();
+    }
+
     public void addEmailCard(EmailCard card) {
         Platform.runLater(()->mailsList.getChildren().add(card));
     }
@@ -100,11 +108,7 @@ public class MailClient {
     }
 
     public void setFolder(String folderName) throws MessagingException, IOException, InterruptedException {
-        //Thread that runs the message list and adds it to the mail List
-        if (emailThread != null) {
-            emailThread.stopThread();
-            emailThread.join();
-        }
+        stopEmailThread();
 
         Message[] messages = connection.getMessagesFromFolder(folderName);
 
@@ -113,8 +117,15 @@ public class MailClient {
         emailThread.start();
     }
 
-    public Executor getEmailProcessingPool() {
+    public ExecutorService getEmailProcessingPool() {
         return emailProcessingPool;
+    }
+
+    public void stopEmailThread() throws InterruptedException {
+        if (emailThread != null) {
+            emailThread.stopThread();
+            emailThread.join();
+        }
     }
 
     public MailClient(Connection connection) {
