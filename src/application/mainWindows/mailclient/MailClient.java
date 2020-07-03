@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -45,7 +46,7 @@ public class MailClient {
         //Creating and setting up the stage
         stage = new Stage();
         stage.setTitle("Gmail Desktop");
-        stage.getIcons().add(Main.PAGE_ICON);
+        stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
         stage.setWidth(1250);
         stage.setHeight(750);
         stage.setOnCloseRequest(new OnCloseHandler(this));

@@ -7,6 +7,7 @@ import application.mainWindows.login.savedlogin.SavedLogin;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -30,7 +31,7 @@ public class Login {
         stage.initStyle(StageStyle.DECORATED);
         stage.setHeight(500);
         stage.setWidth(350);
-        stage.getIcons().add(Main.PAGE_ICON);
+        stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
 
         //Login Event Handler
         LoginEventHandler loginEventHandler = new LoginEventHandler(this);

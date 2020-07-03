@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -43,7 +44,7 @@ public class SendEmailWindow {
         Scene scene = new Scene(root, 1000, 500);
         stage = new Stage();
         stage.setScene(scene);
-        stage.getIcons().add(Main.PAGE_ICON);
+        stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
 
         //Show the stage
         stage.show();
