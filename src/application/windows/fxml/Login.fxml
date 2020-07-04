@@ -51,7 +51,7 @@
             <Insets top="15.0" />
          </VBox.margin>
       </CheckBox>
-      <Button fx:id="loginButton" mnemonicParsing="false" text="Button">
+      <Button fx:id="loginButton" mnemonicParsing="false" text="Login">
          <VBox.margin>
             <Insets top="20.0" />
          </VBox.margin>

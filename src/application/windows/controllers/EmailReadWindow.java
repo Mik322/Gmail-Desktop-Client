@@ -5,14 +5,14 @@ import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.emailreadwindow.DeleteMailButtonHandler;
 import application.eventHandlers.mailclient.emailreadwindow.MarkAsUnreadButton;
 import email.Email;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,6 +20,11 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 
 public class EmailReadWindow {
+
+    @FXML
+    private Label fromLabel, subjectLabel, emailText;
+    @FXML
+    private Button deleteMail, markAsUnread;
 
     private Email email;
     private EmailCard emailCard;
@@ -39,43 +44,21 @@ public class EmailReadWindow {
         stage.setWidth(1000);
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
 
-        //Main Layouts
-        BorderPane root = new BorderPane();
-        HBox menu = new HBox();
-        BorderPane content = new BorderPane();
-        root.setCenter(content);
-        root.setTop(menu);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/EmailReadWindow.fxml"));
+        loader.setController(this);
+
+        BorderPane root = loader.load();
 
         //Header Layout that includes sender and subject
-        GridPane header = new GridPane();
-        header.setHgap(20);
-        content.setTop(header);
 
         //Menu content
-        Button deleteMail = new Button("Delete Email");
         deleteMail.setOnAction(new DeleteMailButtonHandler(this));
-        Button markAsUnread = new Button("Mark as Unread");
         markAsUnread.setOnAction(new MarkAsUnreadButton(emailCard));
-        menu.getChildren().addAll(deleteMail, markAsUnread);
 
-
-        //Header Content
-        //From field
-        Label fromLabelHeader = new Label("From:");
-        Label fromLabel = new Label(email.getFromEmail());
-        header.add(fromLabelHeader, 0, 0 );
-        header.add(fromLabel, 1, 0);
-
-        //Subject Field
-        Label subjectLabelHeader = new Label("Subject:");
-        Label subjectLabel = new Label(email.getSubject());
-        header.add(subjectLabelHeader, 0, 1);
-        header.add(subjectLabel, 1, 1);
-
-        //Message Body
-        Label emailText = new Label(email.getText());
-        ScrollPane textScroll = new ScrollPane(emailText);
-        content.setCenter(textScroll);
+        //Setting the label values
+        fromLabel.setText(email.getFromEmail());
+        subjectLabel.setText(email.getSubject());
+        emailText.setText(email.getText());
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
