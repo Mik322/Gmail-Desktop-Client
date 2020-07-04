@@ -28,17 +28,17 @@ public class LoginEventHandler implements EventHandler<Event> {
         }
 
         try {
+            Connection con = new Connection(stage.getEmail(), stage.getPassword());
+            MailClient client = new MailClient(con);
             if (stage.getSaveLoginDataCheckbox().isSelected()) {
                 SavedLogin.saveValues(stage.getEmail(), stage.getPassword());
             } else {
                 SavedLogin.deleteSavedValues();
             }
-            Connection con = new Connection(stage.getEmail(), stage.getPassword());
-            MailClient client = new MailClient(con);
             stage.getStage().close();
             client.display();
         } catch (AuthenticationFailedException e) {
-            System.out.println("Auth failed");
+            stage.addErrorLabel("Invalid credentials or connection timeout");
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }

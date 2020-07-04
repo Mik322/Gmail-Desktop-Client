@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -19,16 +20,19 @@ import java.io.IOException;
 
 public class Login {
 
-    Stage stage;
+    private Stage stage;
+    private VBox root;
 
     @FXML
-    TextField email;
+    private TextField email;
     @FXML
-    PasswordField password;
+    private PasswordField password;
     @FXML
-    CheckBox saveLoginDataCheckbox;
+    private CheckBox saveLoginDataCheckbox;
     @FXML
-    Button loginButton;
+    private Button loginButton;
+
+    private Label errorLabel;
 
     public void display() throws IOException {
         //Configuring main stage
@@ -40,7 +44,7 @@ public class Login {
         //Loading the fxml VBox
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Login.fxml"));
         loader.setController(this);
-        VBox root = loader.load();
+        root = loader.load();
 
         //Login Event Handler
         LoginEventHandler loginEventHandler = new LoginEventHandler(this);
@@ -75,6 +79,17 @@ public class Login {
         //Setting and showing scene
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void addErrorLabel(String errorMessage) {
+        if (errorLabel != null) {
+            root.getChildren().remove(errorLabel);
+            errorLabel = null;
+        }
+
+        errorLabel = new Label(errorMessage);
+        errorLabel.setTextFill(new Color(1,0,0,1));
+        root.getChildren().add(errorLabel);
     }
 
     public Stage getStage() {
