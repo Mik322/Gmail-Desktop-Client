@@ -4,7 +4,7 @@ import application.Main;
 import application.components.MailBoxesCard.MailBoxCard;
 import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.FolderListButtonHandler;
-import application.eventHandlers.mailclient.OnCloseHandler;
+import application.eventHandlers.mailclient.LogOutMenuHandler;
 import application.eventHandlers.mailclient.OpenSendEmailButtonHandler;
 import application.threads.GetEmailBoxesThread;
 import application.threads.GetEmailsThread;
@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -39,6 +40,8 @@ public class MailClient {
     private HBox menuBar;
     @FXML
     private Button sendMail;
+    @FXML
+    private MenuItem closeMenu, logOutMenu;
 
     private Stage stage;
 
@@ -53,14 +56,19 @@ public class MailClient {
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
         stage.setWidth(1250);
         stage.setHeight(750);
-        stage.setOnCloseRequest(new OnCloseHandler(this));
+
+        stage.setOnCloseRequest(e -> safeClose());
 
         //Main Layout
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/MailClient.fxml"));
         loader.setController(this);
         BorderPane root = loader.load();
 
-        //Menu Buttons
+        //Menu Items
+        closeMenu.setOnAction(e -> safeClose());
+        logOutMenu.setOnAction(new LogOutMenuHandler(this));
+
+        //Email functionality buttons
         sendMail.setOnAction(new OpenSendEmailButtonHandler(connection));
 
         Scene scene = new Scene(root);
@@ -73,10 +81,6 @@ public class MailClient {
         } catch (MessagingException | InterruptedException | IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void closeStage() {
-        stage.close();
     }
 
     public void addEmailCard(EmailCard card) {
@@ -111,10 +115,20 @@ public class MailClient {
         return emailProcessingPool;
     }
 
-    public void stopEmailThread() throws InterruptedException {
+    private void stopEmailThread() throws InterruptedException {
         if (emailThread != null) {
             emailThread.stopThread();
             emailThread.join();
+        }
+    }
+
+    public void safeClose() {
+        try {
+            stopEmailThread();
+            emailProcessingPool.shutdown();
+            stage.close();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
