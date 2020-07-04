@@ -10,9 +10,10 @@ import application.threads.GetEmailBoxesThread;
 import application.threads.GetEmailsThread;
 import email.connection.Connection;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -32,9 +33,12 @@ public class MailClient {
     private Connection connection;
 
     //FX Layouts from mail client
-    private VBox mailsList;
-    private VBox inboxList;
+    @FXML
+    private VBox mailsList, inboxList;
+    @FXML
     private HBox menuBar;
+    @FXML
+    private Button sendMail;
 
     private Stage stage;
 
@@ -42,7 +46,7 @@ public class MailClient {
 
     private ExecutorService emailProcessingPool = Executors.newFixedThreadPool(10);
 
-    public void display() {
+    public void display() throws IOException {
         //Creating and setting up the stage
         stage = new Stage();
         stage.setTitle("Gmail Desktop");
@@ -52,27 +56,12 @@ public class MailClient {
         stage.setOnCloseRequest(new OnCloseHandler(this));
 
         //Main Layout
-        BorderPane root = new BorderPane();
-
-        //Side bar with Boxes
-        inboxList = new VBox();
-        root.setLeft(inboxList);
-
-        //List of emails layout
-        mailsList = new VBox();
-        ScrollPane mailsListScroll = new ScrollPane(mailsList);
-        root.setCenter(mailsListScroll);
-        mailsListScroll.setFitToHeight(true);
-
-        //Menu Layout
-        menuBar = new HBox();
-        root.setTop(menuBar);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/MailClient.fxml"));
+        loader.setController(this);
+        BorderPane root = loader.load();
 
         //Menu Buttons
-        Button sendMail = new Button("Send Email");
         sendMail.setOnAction(new OpenSendEmailButtonHandler(connection));
-
-        menuBar.getChildren().addAll(sendMail);
 
         Scene scene = new Scene(root);
 
