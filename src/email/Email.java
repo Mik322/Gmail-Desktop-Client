@@ -66,7 +66,7 @@ public class Email {
     }
 
     public String getFromName() {
-        if (fromName.equals("")) return fromEmail;
+        if (fromName == null || fromName.equals("")) return fromEmail;
         return fromName;
     }
 
