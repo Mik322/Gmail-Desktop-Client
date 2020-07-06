@@ -33,7 +33,7 @@ public class SendEmailWindow {
 
     public void display() throws IOException {
         //Get the FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SendEmailWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/SendEmailWindow.fxml"));
         loader.setController(this);
         BorderPane root = loader.load();
 
@@ -45,6 +45,7 @@ public class SendEmailWindow {
         stage = new Stage();
         stage.setScene(scene);
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
+        stage.setTitle("Send Email");
 
         //Show the stage
         stage.show();
