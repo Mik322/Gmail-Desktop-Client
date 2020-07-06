@@ -70,4 +70,12 @@ public class SendEmailWindow {
     public String getSubject() {
         return subject.getText();
     }
+
+    public void setForAddress(String forAddress) {
+        this.forAddress.setText(forAddress);
+    }
+
+    public void setSubject(String subject) {
+        this.subject.setText(subject);
+    }
 }

@@ -45,8 +45,9 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="deleteMail" minHeight="50.0" mnemonicParsing="false" text="Delete Email" />
-            <Button fx:id="markAsUnread" minHeight="50.0" mnemonicParsing="false" text="Mark As Unread" />
+            <Button fx:id="deleteMail" minHeight="50.0" mnemonicParsing="false" prefWidth="101.0" text="Delete Email" />
+            <Button fx:id="markAsUnread" minHeight="50.0" mnemonicParsing="false" prefWidth="101.0" text="Mark As Unread" />
+            <Button fx:id="reply" minHeight="50.0" mnemonicParsing="false" prefWidth="101.0" text="Reply" />
          </children>
       </HBox>
    </top>

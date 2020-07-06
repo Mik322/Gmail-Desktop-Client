@@ -4,6 +4,7 @@ import application.Main;
 import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.emailreadwindow.DeleteMailButtonHandler;
 import application.eventHandlers.mailclient.emailreadwindow.MarkAsUnreadButton;
+import application.eventHandlers.mailclient.emailreadwindow.ReplyHandler;
 import email.Email;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +25,12 @@ public class EmailReadWindow {
     @FXML
     private Label fromLabel, subjectLabel, emailText;
     @FXML
-    private Button deleteMail, markAsUnread;
+    private Button deleteMail, markAsUnread, reply;
 
     private Email email;
     private EmailCard emailCard;
 
-    Stage stage;
+    private Stage stage;
 
     public EmailReadWindow(EmailCard emailCard) {
         this.email = emailCard.getEmail();
@@ -54,6 +55,7 @@ public class EmailReadWindow {
         //Menu content
         deleteMail.setOnAction(new DeleteMailButtonHandler(this));
         markAsUnread.setOnAction(new MarkAsUnreadButton(emailCard));
+        reply.setOnAction(new ReplyHandler(this));
 
         //Setting the label values
         fromLabel.setText(email.getFromEmail());
@@ -71,5 +73,17 @@ public class EmailReadWindow {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void close() {
+        stage.close();
+    }
+
+    public Label getFromLabel() {
+        return fromLabel;
+    }
+
+    public Label getSubjectLabel() {
+        return subjectLabel;
     }
 }
