@@ -1,0 +1,26 @@
+Button {
+    -fx-border-style: none;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-background-color: rgb(244, 244, 244);
+    -fx-background-size: 25px 25px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+Button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(100,100,100,0.95), 10, 0.2, 0, 5);
+}
+
+.reply {
+    -fx-background-image: url(/images/icons/replyIcon.png);
+}
+
+.delete-email {
+    -fx-background-image: url(/images/icons/trashIcon.png);
+}
+
+.read-unread {
+    -fx-background-image: url(/images/icons/closedEmail.png);
+}
+

@@ -76,6 +76,7 @@ public class MailClient implements Window {
         sendMail.setOnAction(new OpenSendEmailButtonHandler(this));
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(String.valueOf(getClass().getResource("../css/ButtonStyling.css")));
 
         stage.setScene(scene);
         stage.show();

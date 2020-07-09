@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static final String PAGE_ICON_PATH = "images/GmailIcon.png";
+    public static final String PAGE_ICON_PATH = "images/icons/GmailIcon.png";
 
     @Override
     public void start(Stage primaryStage) throws Exception {

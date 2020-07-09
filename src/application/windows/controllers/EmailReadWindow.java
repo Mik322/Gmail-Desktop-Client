@@ -17,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.mail.MessagingException;
 import java.io.IOException;
 
 public class EmailReadWindow implements Window {
