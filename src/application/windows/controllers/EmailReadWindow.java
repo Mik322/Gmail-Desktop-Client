@@ -5,13 +5,13 @@ import application.components.emailCard.EmailCard;
 import application.eventHandlers.mailclient.emailreadwindow.DeleteMailButtonHandler;
 import application.eventHandlers.mailclient.emailreadwindow.MarkAsUnreadButton;
 import application.eventHandlers.mailclient.emailreadwindow.ReplyHandler;
+import application.windows.Window;
 import email.Email;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import javax.mail.MessagingException;
 import java.io.IOException;
 
-public class EmailReadWindow {
+public class EmailReadWindow implements Window {
 
     @FXML
     private Label fromLabel, subjectLabel, emailText;
@@ -29,21 +29,24 @@ public class EmailReadWindow {
 
     private Email email;
     private EmailCard emailCard;
+    private MailClient client;
 
     private Stage stage;
 
     public EmailReadWindow(EmailCard emailCard) {
+        this.client = emailCard.getMailClient();
         this.email = emailCard.getEmail();
         this.emailCard = emailCard;
     }
 
-    public void display() throws IOException, MessagingException {
+    public void display() throws IOException {
         stage = new Stage();
         stage.setTitle(email.getSubject());
         stage.initModality(Modality.NONE);
         stage.setHeight(750);
         stage.setWidth(1000);
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
+        stage.setOnCloseRequest(e -> client.removeOpenWindow(this));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/EmailReadWindow.fxml"));
         loader.setController(this);

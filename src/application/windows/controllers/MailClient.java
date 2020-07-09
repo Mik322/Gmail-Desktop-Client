@@ -8,6 +8,7 @@ import application.eventHandlers.mailclient.LogOutMenuHandler;
 import application.eventHandlers.mailclient.OpenSendEmailButtonHandler;
 import application.threads.GetEmailBoxesThread;
 import application.threads.GetEmailsThread;
+import application.windows.Window;
 import email.connection.Connection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -24,14 +25,17 @@ import javafx.stage.Stage;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MailClient {
+public class MailClient implements Window {
 
     //Email Connection Objects
     private Connection connection;
+
+    private ArrayList<Window> openWindows = new ArrayList<>();
 
     //FX Layouts from mail client
     @FXML
@@ -69,7 +73,7 @@ public class MailClient {
         logOutMenu.setOnAction(new LogOutMenuHandler(this));
 
         //Email functionality buttons
-        sendMail.setOnAction(new OpenSendEmailButtonHandler(connection));
+        sendMail.setOnAction(new OpenSendEmailButtonHandler(this));
 
         Scene scene = new Scene(root);
 
@@ -80,6 +84,17 @@ public class MailClient {
             setFolder("INBOX");
         } catch (MessagingException | InterruptedException | IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void close() {
+        stage.close();
+    }
+
+    public void closeOpenWindows() {
+        for (Window w: openWindows) {
+            w.close();
         }
     }
 
@@ -126,10 +141,19 @@ public class MailClient {
         try {
             stopEmailThread();
             emailProcessingPool.shutdown();
+            openWindows.forEach(w -> w.close());
             stage.close();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addOpenWindow(Window w) {
+        openWindows.add(w);
+    }
+
+    public void removeOpenWindow(Window w) {
+        openWindows.remove(w);
     }
 
     public MailClient(Connection connection) {

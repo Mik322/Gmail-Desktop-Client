@@ -2,6 +2,7 @@ package application.windows.controllers;
 
 import application.Main;
 import application.eventHandlers.mailclient.sendemailwindow.SendEmailButtonHandler;
+import application.windows.Window;
 import email.connection.Connection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SendEmailWindow {
+public class SendEmailWindow implements Window {
 
     @FXML
     private TextField forAddress, subject;
@@ -26,9 +27,11 @@ public class SendEmailWindow {
 
     private Stage stage;
     private Connection connection;
+    private MailClient client;
 
-    public SendEmailWindow(Connection connection) {
-        this.connection = connection;
+    public SendEmailWindow(MailClient client) {
+        this.client = client;
+        this.connection = client.getConnection();
     }
 
     public void display() throws IOException {
@@ -46,9 +49,15 @@ public class SendEmailWindow {
         stage.setScene(scene);
         stage.getIcons().add(new Image(Main.PAGE_ICON_PATH));
         stage.setTitle("Send Email");
+        stage.setOnCloseRequest(e -> client.removeOpenWindow(this));
 
         //Show the stage
         stage.show();
+    }
+
+    @Override
+    public void close() {
+        stage.close();
     }
 
     public Connection getConnection() {

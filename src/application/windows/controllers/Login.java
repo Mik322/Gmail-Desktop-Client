@@ -2,6 +2,7 @@ package application.windows.controllers;
 
 import application.Main;
 import application.eventHandlers.login.LoginEventHandler;
+import application.windows.Window;
 import email.savedlogin.LoginCredentials;
 import email.savedlogin.SavedLogin;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class Login {
+public class Login implements Window {
 
     private Stage stage;
     private VBox root;
@@ -90,6 +91,10 @@ public class Login {
         errorLabel = new Label(errorMessage);
         errorLabel.setTextFill(new Color(1,0,0,1));
         root.getChildren().add(errorLabel);
+    }
+
+    public void close() {
+        stage.close();
     }
 
     public Stage getStage() {
