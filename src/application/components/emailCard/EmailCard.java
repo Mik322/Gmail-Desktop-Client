@@ -19,7 +19,7 @@ public class EmailCard extends AnchorPane {
     private MailClient mailClient;
 
     private static final String SEEN_BACKGROUND_STYLE = "-fx-background-color: rgba(220,220,220,0.7)";
-    private static final String UNSEEN_BACKGROUND_STYLE = "-fx-background-color: white";
+    private static final String UNSEEN_BACKGROUND_STYLE = "-fx-background-color: rgb(244, 244, 244)";
 
     public EmailCard(Email email, MailClient mailClient) {
         try {
@@ -41,6 +41,10 @@ public class EmailCard extends AnchorPane {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean isProcessing() {
+        return !email.getHasFinishedProcessing();
     }
 
     public synchronized void waitForProcessing() throws InterruptedException {
